@@ -1,0 +1,227 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Explorer Limited Dashboard</title>
+
+    <style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f4f6f9;
+    }
+
+    /* NAVBAR */
+    .navbar {
+        background: #0a3d62;
+        color: white;
+        padding: 15px 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 70px;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+        width: 220px;
+        background: #0a3d62;
+        color: white;
+        position: fixed;
+        top: 70px; /* height of navbar */
+        left: 0;
+        bottom: 0;
+        padding-top: 20px;
+    }
+
+    .sidebar a {
+        display: block;
+        color: white;
+        padding: 12px 20px;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .sidebar a:hover {
+        background: #27ae60;
+    }
+
+    /* MAIN CONTENT */
+    .main-content {
+        margin-left: 220px;
+        padding: 30px;
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+    }
+
+    .card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 5px solid #27ae60;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .value {
+        font-size: 28px;
+        font-weight: bold;
+        color: #0a3d62;
+    }
+    /* MOBILE RESPONSIVENESS */
+    @media (max-width: 768px) {
+
+        .navbar {
+            flex-direction: column;
+            align-items: flex-start;
+            height: auto;
+        }
+
+        .sidebar {
+            position: relative;
+            width: 100%;
+            top: 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .sidebar a {
+            flex: 1 1 50%;
+            text-align: center;
+            padding: 10px;
+            font-size: 13px;
+        }
+
+        .main-content {
+            margin-left: 0;
+            padding: 15px;
+        }
+
+        .cards {
+            grid-template-columns: 1fr;
+        }
+
+        .card {
+            font-size: 14px;
+        }
+    }
+
+
+</style>
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div style="display:flex; align-items:center;">
+        <img src="/static/images/logo.png"
+             style="height:80px; background:white; padding:6px; border-radius:6px; margin-right:15px;">
+        <h2 style="margin:0;">Cool Explorer Limited</h2>
+    </div>
+
+    <div>
+        Welcome, <strong>{{ request.user.username }}</strong>
+
+        <form method="post" action="/admin/logout/" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit"
+                style="background:none; border:none; color:#27ae60; font-weight:bold; margin-left:15px; cursor:pointer;">
+                Logout
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <a href="/">🏠 Dashboard</a>
+
+    {% if is_admin %}
+        <a href="/admin/members/member/">👤 Members</a>
+        <a href="/admin/vehicles/vehicle/">🚐 Vehicles</a>
+        <a href="/admin/drivers_app/driver/">🧑‍✈️ Drivers</a>
+        <a href="/admin/routes/route/">🛣 Routes</a>
+    {% endif %}
+
+    {% if is_admin or is_clerk %}
+        <a href="/trips/add/">➕ Add Trip</a>
+        <a href="/expenses/add/">➖ Add Expense</a>
+    {% endif %}
+
+    {% if is_admin or is_manager %}
+        <a href="/reports/">📊 Reports</a>
+    {% endif %}
+
+    {% if is_admin %}
+        <a href="/admin/">⚙ Admin</a>
+    {% endif %}
+    {% if is_admin or is_manager %}
+        <a href="/drivers-report/">📊 Driver Performance</a>
+    {% endif %}
+    {% if is_admin or is_manager %}
+        <a href="/vehicle-report/">🚐 Vehicle Performance</a>
+    {% endif %}
+    
+    {% if is_admin or is_manager %}
+        <a href="/audit-logs/">🔍 Audit Logs</a>
+    {% endif %}
+
+</div>
+
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
+    <div class="cards">
+        <div class="card">
+            <p>Total Members</p>
+            <div class="value">{{ total_members }}</div>
+        </div>
+
+        <div class="card">
+            <p>Total Vehicles</p>
+            <div class="value">{{ total_vehicles }}</div>
+        </div>
+
+        <div class="card">
+            <p>Total Routes</p>
+            <div class="value">{{ total_routes }}</div>
+        </div>
+
+        <div class="card">
+            <p>Today's Trips</p>
+            <div class="value">{{ today_trips }}</div>
+        </div>
+
+        <div class="card">
+            <p>Today's Collection (KSh)</p>
+            <div class="value">{{ today_collection }}</div>
+        </div>
+
+        <div class="card">
+            <p>Total Drivers</p>
+            <div class="value">{{ total_drivers }}</div>
+        </div>
+
+        <div class="card">
+            <p>Active Drivers</p>
+            <div class="value">{{ active_drivers }}</div>
+        </div>
+
+
+        <div class="card">
+            <p>Today's Expenses (KSh)</p>
+            <div class="value">{{ today_expenses }}</div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
+

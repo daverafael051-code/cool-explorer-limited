@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Driver Performance Report</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background: #0a3d62;
+            color: white;
+        }
+        tr:hover {
+            background: #f1f1f1;
+        }
+        .filters {
+            margin-bottom: 15px;
+        }
+        input, button {
+            padding: 8px;
+            margin-right: 10px;
+        }
+        button {
+            background: #27ae60;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>🚐 Driver Performance Report</h2>
+
+<div class="filters">
+    <form method="get">
+        <input type="date" name="date">
+        <input type="month" name="month">
+        <button type="submit">Filter</button>
+    </form>
+</div>
+
+<table>
+    <tr>
+        <th>Driver</th>
+        <th>Total Trips</th>
+        <th>Total Revenue (KSh)</th>
+    </tr>
+
+    {% for row in report %}
+    <tr>
+        <td>{{ row.driver__full_name }}</td>
+        <td>{{ row.total_trips }}</td>
+        <td>{{ row.total_revenue|default:0 }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="3">No data available</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

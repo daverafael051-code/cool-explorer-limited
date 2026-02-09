@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            padding: 30px;
+        }
+        .box {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+        .stat {
+            font-size: 18px;
+            margin: 15px 0;
+        }
+        .profit {
+            color: green;
+            font-weight: bold;
+        }
+        .loss {
+            color: red;
+            font-weight: bold;
+        }
+        input, button {
+            padding: 8px;
+            margin-top: 10px;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .box {
+                width: 100%;
+                padding: 15px;
+            }
+
+            input, button {
+                width: 100%;
+                font-size: 16px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>📊 Reports</h2>
+
+    <form method="get">
+        <label>Select Date:</label><br>
+        <input type="date" name="date">
+        <br><br>
+
+        <label>Select Month:</label><br>
+        <input type="month" name="month">
+        <br><br>
+
+        <button type="submit">View Report</button>
+    </form>
+
+    <hr>
+
+    <div class="stat">💰 Total Collections: <strong>KSh {{ total_collections }}</strong></div>
+    <div class="stat">➖ Total Expenses: <strong>KSh {{ total_expenses }}</strong></div>
+
+    <div class="stat">
+        ✅ Net Balance:
+        {% if net_balance >= 0 %}
+            <span class="profit">KSh {{ net_balance }}</span>
+        {% else %}
+            <span class="loss">KSh {{ net_balance }}</span>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cool Explorer SACCO Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            padding: 20px;
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🚐 Cool Explorer Limited Dashboard</h1>
+
+<div class="cards">
+    <div class="card">
+        <p>Total Members</p>
+        <div class="value">{{ total_members }}</div>
+    </div>
+
+    <div class="card">
+        <p>Total Vehicles</p>
+        <div class="value">{{ total_vehicles }}</div>
+    </div>
+
+    <div class="card">
+        <p>Total Routes</p>
+        <div class="value">{{ total_routes }}</div>
+    </div>
+
+    <div class="card">
+        <p>Today's Trips</p>
+        <div class="value">{{ today_trips }}</div>
+    </div>
+
+    <div class="card">
+        <p>Today's Collection (KSh)</p>
+        <div class="value">{{ today_collection }}</div>
+    </div>
+
+    <div class="card">
+        <p>Today's Expenses (KSh)</p>
+        <div class="value">{{ today_expenses }}</div>
+    </div>
+</div>
+
+</body>
+</html>
